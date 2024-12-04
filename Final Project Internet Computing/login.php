@@ -1,5 +1,7 @@
 <?php
 
+    require "db.php";
+    error_reporting(0);
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +12,53 @@
     <title>University Student Management System - Login</title>
    
 </head>
+
+<?php
+
+    $text = "";
+    if(isset($_POST["submit"])){
+        $results = checkpassword($_POST["user_id"], $_POST["password"]);
+        if($results['success'] == 1)
+        {
+            session_start();
+            $_SESSION["user_ID"] = $results["data"]["ID"];
+            $_SESSION["email"] = $results["data"]["email"];
+            $_SESSION["password"] = $results["data"]["password"];
+            $_SESSION["role"] = $results["data"]["role"];
+            $_SESSION["status"] = $results["data"]["status"];
+
+            if($_SESSION["status"] == "Approved"){
+                
+                if($_SESSION["role"] == "Admin"){
+
+                    header("Location: admin_dashboard.php");
+
+                }elseif ($_SESSION["role"] == "Faculty") {
+
+                    header("Location: faculty_dashboard.php");
+
+                }elseif ($_SESSION["role"] == "Student") {
+
+                    header("Location: student_dashboard.php");
+                }
+
+            }elseif($_SESSION["status"] == "Pending"){
+                
+                $text = "Account Waiting Approval";
+
+            }elseif($_SESSION["status"] == "Rejected"){
+                
+                $text = "Account Rejected";
+            }
+
+        }else{
+            $text = "Wrong ID or Password";
+        }
+    }
+
+?>
+
+
 <style>
  /* General Styling */
 * {
@@ -113,13 +162,19 @@ body {
     <div class="login-container">
         <h1>University Student Management System</h1>
         <form action="login.php" method="POST" class="login-form">
+            
+            <span>
+                <?= $text; ?>
+            </span>
+
             <label for="user_id">User ID</label>
             <input type="number" id="user_id" name="user_id" placeholder="Enter your User ID" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your Password" required>
 
-            <button type="submit">Login</button>
+            <input type="submit" name="submit" value="Log In">
+        
         </form>
     </div>
 </body>
