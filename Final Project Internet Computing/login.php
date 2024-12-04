@@ -32,14 +32,15 @@
                 if($_SESSION["role"] == "Admin"){
 
                     header("Location: admin_dashboard.php");
-
+                    exit;
                 }elseif ($_SESSION["role"] == "Faculty") {
 
                     header("Location: faculty_dashboard.php");
-
+                    exit;
                 }elseif ($_SESSION["role"] == "Student") {
 
                     header("Location: student_dashboard.php");
+                    exit;
                 }
 
             }elseif($_SESSION["status"] == "Pending"){
