@@ -22,6 +22,7 @@
         {
             session_start();
             $_SESSION["user_ID"] = $results["data"]["ID"];
+            $_SESSION["name"] = $results["data"]["name"];
             $_SESSION["email"] = $results["data"]["email"];
             $_SESSION["password"] = $results["data"]["password"];
             $_SESSION["role"] = $results["data"]["role"];

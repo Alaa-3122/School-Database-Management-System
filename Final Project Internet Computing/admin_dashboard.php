@@ -19,13 +19,9 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Number of Courses</th>
                             <th>Number of Faculty Members</th>
                             <th>Number of Students</th>
-                            <th>Instructor Name</th>
-                            <th>Delete</th>
-                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
