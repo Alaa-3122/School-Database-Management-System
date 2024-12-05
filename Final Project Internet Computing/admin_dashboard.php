@@ -3,7 +3,10 @@
     error_reporting(0);
 
     // To display user
-    $users = selectstudents();
+    $StudentsToDisplay = selectstudents();
+    $FacultyToDisplay = selectfaculty();
+    $coursesInstructor = selectcourse_admin();
+    $stats = getDashboardStats();
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +23,9 @@
         <h1>Admin Dashboard</h1>
     </div>
 
-      <div class="container">
+    <div class="container">
      <!-- Overall View Table -->   
-    <div class="section">
+        <div class="section">
             <h2>Overall View</h2>
             <div class="table-container">
                 <table>
@@ -31,11 +34,22 @@
                             <th>Number of Courses</th>
                             <th>Number of Faculty Members</th>
                             <th>Number of Students</th>
+                            <th>Highest Grade</th>
+                            <th>Lowest Grade</th>
+                            <th>Average Grade</th>
+                            <th>Instructor Teaching The Most Courses</th>
+                            <th>Number Of Courses</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
-                      
+                        <td><?php echo isset($stats[0]) ? $stats[0] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[1]) ? $stats[1] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[2]) ? $stats[2] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[3]) ? $stats[3] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[4]) ? $stats[4] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[5]) ? $stats[5] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[6]) ? $stats[6] : 'N/A'; ?></td>
+                        <td><?php echo isset($stats[7]) ? $stats[7] : 'N/A'; ?></td>
                     </tbody>
                 </table>
             </div>
@@ -62,24 +76,24 @@
                     <tbody>
                         <?php
                             
-                            for($i = 0; $i < count($users); $i++){
+                            for($i = 0; $i < count($StudentsToDisplay); $i++){
                                 ?>
                                 <tr>
-                                    <td><?php echo $users[$i]["ID"]?></td>
-                                    <td><?php echo $users[$i]["user_id"]?></td>
-                                    <td><?php echo $users[$i]["name"]?></td>
-                                    <td><?php echo $users[$i]["gpa"]?></td>
-                                    <td><?php echo $users[$i]["email"]?></td>
-                                    <td><?php echo $users[$i]["password"]?></td>
-                                    <td><?php echo $users[$i]["role"]?></td>
-                                    <td><?php echo $users[$i]["status"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["ID"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["user_id"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["name"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["gpa"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["email"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["password"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["role"]?></td>
+                                    <td><?php echo $StudentsToDisplay[$i]["status"]?></td>
                                     <td>
-                                        <a href="signup.php?action=edit&id=<?php echo $users[$i]['user_id']?>">
+                                        <a href="signup.php?action=edit&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
                                             <i class="fa-regular fa-pen-to-square" style="color: #00ffb3;"></i>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="admindashboard.php?action=delete&id=<?php echo $users[$i]['user_id']?>">
+                                        <a href="admindashboard.php?action=delete&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
                                             <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                                         </a>
                                     </td>
@@ -100,15 +114,84 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Courses</th>
-                            <th>Instructors</th>
+                            <th>FacultyID</th>
+                            <th>UserID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Edit</th>
                             <th>Delete</th>
-                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                            
+                            for($i = 0; $i < count($FacultyToDisplay); $i++){
+                                ?>
+                                <tr>
+                                    <td><?php echo $FacultyToDisplay[$i]["ID"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["user_id"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["name"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["department"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["email"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["password"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["role"]?></td>
+                                    <td><?php echo $FacultyToDisplay[$i]["status"]?></td>
+                                    <td>
+                                        <a href="signup.php?action=edit&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
+                                            <i class="fa-regular fa-pen-to-square" style="color: #00ffb3;"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="admindashboard.php?action=delete&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
+                                            <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
                         
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Courses Table (each course and who's teaching it) -->
+        <div class="section">
+            <h2>Courses</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course ID</th>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Faculty ID</th>                           
+                            <th>User ID</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            
+                            for($i = 0; $i < count($coursesInstructor); $i++){
+                                ?>
+                                <tr>
+                                    <td><?php echo $coursesInstructor[$i]["ID"]?></td>
+                                    <td><?php echo $coursesInstructor[$i]["course_code"]?></td>
+                                    <td><?php echo $coursesInstructor[$i]["course_name"]?></td>
+                                    <td><?php echo $coursesInstructor[$i]["faculty_id"]?></td>
+                                    <td><?php echo $coursesInstructor[$i]["user_id"]?></td>
+                                    <td><?php echo $coursesInstructor[$i]["name"]?></td>
+                                </tr>
+                                <?php
+                            }
+                        
+                        ?>
                     </tbody>
                 </table>
             </div>
