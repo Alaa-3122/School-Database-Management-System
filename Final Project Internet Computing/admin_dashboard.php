@@ -1,11 +1,18 @@
 <?php
     require "db.php";
     error_reporting(0);
+    session_start();
+    if($_SESSION["user_ID"] == null){
+        header("Location: sign-in.php");
+    }
 
-    // To display user
+    // To display students
     $StudentsToDisplay = selectstudents();
+    // To dispplay faculty
     $FacultyToDisplay = selectfaculty();
+    // To display courses and instructor
     $coursesInstructor = selectcourse_admin();
+    // To display stats
     $stats = getDashboardStats();
 ?>
 
