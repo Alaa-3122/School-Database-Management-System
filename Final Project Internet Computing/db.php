@@ -42,5 +42,52 @@ function checkpassword($id, $pass) {
 
     // $conn->close();
 }
+
+// Display Students in admin dashboard
+
+// Select and display all students
+function selectstudents() {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT * FROM users inner join students on users.ID = students.user_id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        echo "0 results";
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+// Select and display all faculty
+function selectfaculty() {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT * FROM users inner join faculty on users.ID = faculty.user_id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        echo "0 results";
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
 ?>
 

@@ -1,9 +1,18 @@
+<?php
+    require "db.php";
+    error_reporting(0);
+
+    // To display user
+    $users = selectstudents();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -38,16 +47,47 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Courses</th>
-                            <th>Faculty</th>
-                            <th>Instructor Name</th>
+                            <th>StudentID</th>
+                            <th>UserID</th>
+                            <th>Name</th>
+                            <th>GPA</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Edit</th>
                             <th>Delete</th>
-                            <th>Update</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
+                        <?php
+                            
+                            for($i = 0; $i < count($users); $i++){
+                                ?>
+                                <tr>
+                                    <td><?php echo $users[$i]["ID"]?></td>
+                                    <td><?php echo $users[$i]["user_id"]?></td>
+                                    <td><?php echo $users[$i]["name"]?></td>
+                                    <td><?php echo $users[$i]["gpa"]?></td>
+                                    <td><?php echo $users[$i]["email"]?></td>
+                                    <td><?php echo $users[$i]["password"]?></td>
+                                    <td><?php echo $users[$i]["role"]?></td>
+                                    <td><?php echo $users[$i]["status"]?></td>
+                                    <td>
+                                        <a href="signup.php?action=edit&id=<?php echo $users[$i]['user_id']?>">
+                                            <i class="fa-regular fa-pen-to-square" style="color: #00ffb3;"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="admindashboard.php?action=delete&id=<?php echo $users[$i]['user_id']?>">
+                                            <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        
+                        ?>
                     </tbody>
                 </table>
             </div>
