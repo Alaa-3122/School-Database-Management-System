@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.header {
+    background-color: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.student-info-box {
+    background-color: #e0f7fa; 
+    color: #333;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    font-weight: bold;
+    max-width: 500px; 
+    margin-left: 20px; 
+}
+
+.section {
+    margin: 20px;
+    text-align: left; 
+}
+
+
+.course-name {
+    color: #1e3a8a; 
+    font-weight: bold; 
+}
+
+
+.table-container {
+    margin-top: 10px;
+    overflow-x: auto; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    text-align: left; 
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #1e3a8a;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #d1e7ff;
+}
+
+
+.update-grade-form {
+    display: flex;
+    gap: 10px;
+}
+
+.update-grade-form input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100px;
+}
+
+.update-grade-form button {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update-grade-form button:hover {
+    background-color: #15527a;
+}
+
+
+@media (max-width: 768px) {
+    .student-info-box, .section {
+        width: 90%; 
+        margin: 20px auto; 
+    }
+}
