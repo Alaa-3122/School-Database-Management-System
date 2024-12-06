@@ -159,5 +159,55 @@ function getDashboardStats() {
 }
 
 
+// Student Dashboard Course Count
+function getStudentCourseCount($id) {
+    $conn = getConnection();
+
+    // SQL query to count the courses a student is enrolled in
+    $sql = "SELECT COUNT(*) AS course_count 
+    FROM student_courses as sc 
+    INNER JOIN students as s ON sc.student_id = s.ID
+    WHERE s.user_id = $id
+    GROUP BY s.user_id";
+    
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['course_count']; // Return the course count directly
+    } else {
+        return null;
+    }
+}
+
+// Courses enrolled by the student
+function selectcourse_student($id) {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT c.course_code, c.course_name, sc.grade, u.name as instructor
+    from students as s inner join student_courses as sc on s.ID = sc.student_id
+    inner join courses as c on c.ID = sc.course_id
+    inner join faculty_course as fc on fc.course_id = c.ID
+    inner join faculty as f on f.ID = fc.faculty_id
+    inner join users as u on u.ID = f.user_id
+    where s.user_id = $id";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        return null;
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+
+
+
 ?>
 

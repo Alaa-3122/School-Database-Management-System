@@ -5,9 +5,10 @@
     if($_SESSION["user_ID"] == null){
         header("Location: login.php");
     }
-
     $student_name = isset($_SESSION["name"]) ? $_SESSION["name"] : 'N/A';
     $student_id = isset($_SESSION["user_ID"]) ? $_SESSION["user_ID"] : 'N/A';
+    $coursecount = getStudentCourseCount($_SESSION["user_ID"]);
+    $courses = selectcourse_student($_SESSION["user_ID"]);
 ?>
 
 <!DOCTYPE html>
@@ -28,28 +29,11 @@
     <div class="student-info-box">
         <p><strong>Student ID:</strong> <?php echo $student_id; ?></p>
         <p><strong>Student Name:</strong> <?php echo $student_name; ?></p>
+        <p><strong>Number Of Courses:</strong> <?php echo isset($coursecount) ? $coursecount : 0; ?></p>
+        <p><strong>Registered Credits:</strong> <?php echo isset($coursecount) ? $coursecount * 3 : 0;; ?></p>
     </div>
 
     <div class="container">
-        <div class="section">
-            <h2>Overall View</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Number Of Courses</th>
-                            <th>Registered Credits</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td><?php echo isset($stats[0]) ? $stats[0] : 'N/A'; ?></td>
-                        <td><?php echo isset($stats[1]) ? $stats[1] : 'N/A'; ?></td>
-                        <td><?php echo isset($stats[2]) ? $stats[2] : 'N/A'; ?></td>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
         <div class="section">
             <h2>Courses Registered</h2>
@@ -57,14 +41,26 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Course ID</th>
                             <th>Course Code</th>
                             <th>Course Name</th>
+                            <th>Instructor</th>
                             <th>Grade</th>
                         </tr>
                     </thead>
                     <tbody>
-                    
+                        <?php
+                            for($i = 0; $i < count($courses); $i++){
+                                ?>
+                                <tr>
+                                    <td><?php echo $courses[$i]["course_code"]?></td>
+                                    <td><?php echo $courses[$i]["course_name"]?></td>
+                                    <td><?php echo $courses[$i]["instructor"]?></td>
+                                    <td><?php echo isset($courses[$i]["grade"]) ? $courses[$i]["grade"] : "N/A";?></td>
+                                </tr>
+                                <?php
+                            }
+                        
+                        ?>
                     </tbody>
                 </table>
             </div>
