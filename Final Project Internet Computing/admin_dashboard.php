@@ -23,8 +23,49 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="admin_dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+/>
 </head>
 <body>
+    
+<!-- Bell Icon for Menu -->
+<div class="bell-menu" onclick="toggleMenu()">
+    <i class="fa-solid fa-bell"></i> 
+    <span class="notification-badge"></span>
+</div>
+
+<!-- Notifications Menu -->
+<div class="notification-menu" id="notificationMenu">
+    <h2>Notifications</h2>
+    <div class="notification">
+        New student "John Doe" has registered.
+        <form>
+            <input type="submit" name="submit" value="Approve" class="btn-approve">
+            <input type="submit" name="submit" value="Reject" class="btn-reject">
+        </form>
+    </div>
+    <div class="notification">
+        New faculty "Dr. Smith" has registered.
+        <form>
+            <input type="submit" name="submit" value="Approve" class="btn-approve">
+            <input type="submit" name="submit" value="Reject" class="btn-reject">
+        </form>
+    </div>
+</div>
+
+
+    <script>
+        function toggleMenu() {
+    const menu = document.getElementById('notificationMenu');
+    menu.classList.toggle('active');
+}
+
+    </script>
 
     <div class="header">
         <h1>Admin Dashboard</h1>
