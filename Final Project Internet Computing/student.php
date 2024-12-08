@@ -36,10 +36,6 @@
 
 <?php
 if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
-    echo "<pre>";
-    print_r($_POST);
-    // print_r($_GET);
-    // exit;
     insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
 }
 ?>
