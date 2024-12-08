@@ -18,8 +18,10 @@
     if(isset($_POST["action"])){
         if ($_POST["action"] == "Approve") {
             approveUserNotification($_POST["notification_id"]);
+            header("Location: admin_dashboard.php");
         }elseif ($_POST["action"] == "Reject") {
             rejectUserNotification($_POST["notification_id"]);
+            header("Location: admin_dashboard.php");
         }
     }
 ?>
@@ -87,7 +89,7 @@ function checkNotifications() {
                 console.error('Error fetching notifications:', error);
             }
         });
-    }, 10000); // 10 seconds interval
+    }, 2000); // 10 seconds interval
 }
 
 checkNotifications();
