@@ -14,6 +14,15 @@
     $coursesInstructor = selectcourse_admin();
     // To display stats
     $stats = getDashboardStats();
+
+    print_r($_POST);
+    if(isset($_POST["action"])){
+        if ($_POST["action"] == "Approve") {
+            approveUserNotification($_POST["notification_id"]);
+        }elseif ($_POST["action"] == "Reject") {
+            rejectUserNotification($_POST["notification_id"]);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +39,61 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
 />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    function updateNotifications(data) {
+    const notifications = data.notifications;
+    const notificationCount = data.count;
+    const notificationBadge = document.querySelector('.notification-badge');
+    const notificationMenu = document.getElementById('notificationMenu');
+
+    // Update notification badge
+    if (notificationCount > 0) {
+        notificationBadge.style.display = 'block';
+        notificationBadge.textContent = notificationCount;
+    } else {
+        notificationBadge.style.display = 'none';
+    }
+
+    // Update notification menu
+    notificationMenu.innerHTML = '<h2>Notifications</h2>'; // Clear previous notifications
+    notifications.forEach(notification => {
+        const notificationElement = document.createElement('div');
+        notificationElement.classList.add('notification');
+        notificationElement.innerHTML = `
+            ${notification.message}
+            <form method="POST">
+                <input type="hidden" name="notification_id" value="${notification.ID}">
+                <input type="submit" name="action" value="Approve" class="btn-approve">
+                <input type="submit" name="action" value="Reject" class="btn-reject">
+            </form>
+        `;
+        notificationMenu.appendChild(notificationElement);
+    });
+}
+
+// Fetch notifications periodically
+function checkNotifications() {
+    setInterval(() => {
+        $.ajax({
+            url: 'check_notifications.php',
+            method: 'GET',
+            success: function(response) {
+                const data = JSON.parse(response);
+                updateNotifications(data);
+            },
+            error: function(error) {
+                console.error('Error fetching notifications:', error);
+            }
+        });
+    }, 10000); // 10 seconds interval
+}
+
+checkNotifications();
+
+</script>
 </head>
 <body>
     
@@ -42,20 +106,6 @@
 <!-- Notifications Menu -->
 <div class="notification-menu" id="notificationMenu">
     <h2>Notifications</h2>
-    <div class="notification">
-        New student "John Doe" has registered.
-        <form>
-            <input type="submit" name="submit" value="Approve" class="btn-approve">
-            <input type="submit" name="submit" value="Reject" class="btn-reject">
-        </form>
-    </div>
-    <div class="notification">
-        New faculty "Dr. Smith" has registered.
-        <form>
-            <input type="submit" name="submit" value="Approve" class="btn-approve">
-            <input type="submit" name="submit" value="Reject" class="btn-reject">
-        </form>
-    </div>
 </div>
 
 

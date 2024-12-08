@@ -277,7 +277,7 @@ function studentsInCourse($id) {
 function updateGrade($student_id, $course_id, $grade) {
     $conn = getConnection();
 
-    // Delete query
+    
     $sql = "UPDATE `student_courses` SET `grade`='$grade'
     WHERE student_id = $student_id and course_id = $course_id;
     ";
@@ -306,5 +306,118 @@ function getstudentIDFromUserID($id) {
     }
 }
 
+
+function approveUserNotification($nid) {
+    $conn = getConnection();
+
+    
+    $sql = "UPDATE `notifications`
+    SET `is_read`='1'
+    WHERE ID = $nid
+    ";
+
+    if ($conn->query($sql) === TRUE) {
+        return approveUser($nid);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function approveUser($nid) {
+    $conn = getConnection();
+
+    
+    $sql = "UPDATE users
+    SET status = 'Approved'
+    WHERE users.ID IN (
+    SELECT user_id 
+    FROM notifications
+    WHERE notifications.ID = $nid
+    )
+
+    ";
+
+    if ($conn->query($sql) === TRUE) {
+        return "Status Updated";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+
+
+
+}
+
+
+
+function rejectUserNotification($nid) {
+    $conn = getConnection();
+
+    
+    $sql = "UPDATE `notifications`
+    SET `is_read`='1'
+    WHERE ID = $nid
+    ";
+
+    if ($conn->query($sql) === TRUE) {
+        return rejectUser($nid);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function rejectUser($nid) {
+    $conn = getConnection();
+
+    
+    $sql = "UPDATE users
+    SET status = 'Rejected'
+    WHERE users.ID IN (
+    SELECT user_id 
+    FROM notifications
+    WHERE notifications.ID = $nid
+    )
+
+    ";
+
+    if ($conn->query($sql) === TRUE) {
+        return "Status Updated";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
 

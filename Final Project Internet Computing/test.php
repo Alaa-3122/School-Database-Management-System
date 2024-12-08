@@ -22,11 +22,12 @@
 
     
     // $students = studentsInCourse($fc[""])
-    $students = [];
-    $courses = selectcourse_faculty(6);
-    for($i = 0; $i < count($courses); $i++){
-        $students[$i] = studentsInCourse($courses[$i]["ID"]);
-    }
-    print_r($students);
-    
+    // $students = [];
+    // $courses = selectcourse_faculty(6);
+    // for($i = 0; $i < count($courses); $i++){
+    //     $students[$i] = studentsInCourse($courses[$i]["ID"]);
+    // }
+    // print_r($students);
+    $newNotifications = getNewNotifications();
+    print_r($newNotifications);
 ?>

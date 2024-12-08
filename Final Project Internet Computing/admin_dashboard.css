@@ -104,22 +104,48 @@ table tr:hover {
 }
 /* Notification Badge */
 .notification-badge {
+    display: none; /* Hidden by default */
     position: absolute;
-    top: -5px; 
-    right: -5px; 
+    top: -5px;
+    right: -5px;
     background-color: red;
     color: white;
-    border-radius: 50%; 
-    width: 10px; 
-    height: 10px; 
-    display: inline-block;
-    content: '';
-    z-index: 2000;
-    border: 2px solid white; 
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px;
 }
-
 
 .notification-menu.active {
     right: 0; 
 }
 
+.btn-approve,
+.btn-reject {
+    padding: 8px 12px;
+    margin: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+/* Styles for approve button */
+.btn-approve {
+    background-color: #28a745; /* Green */
+    color: white;
+}
+
+.btn-approve:hover {
+    background-color: #218838; /* Darker Green */
+}
+
+/* Styles for reject button */
+.btn-reject {
+    background-color: #dc3545; /* Red */
+    color: white;
+}
+
+.btn-reject:hover {
+    background-color: #c82333; /* Darker Red */
+}
