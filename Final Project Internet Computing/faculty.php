@@ -33,7 +33,7 @@
     <div class="container">
         <div class="form-wrapper">
             <h2>Instructor Sign Up</h2>
-            <form action="submit_form.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="faculty.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name">
@@ -54,7 +54,7 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
                 </div>
-                <button type="submit" class="submit-btn">Sign Up</button>
+                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
             </form>
         </div>
     </div>
