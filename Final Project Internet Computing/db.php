@@ -531,7 +531,7 @@ function deleteUser($id) {
     $conn = getConnection();
 
     // Delete query
-    $sql = "DELETE FROM users WHERE id=$id";
+    $sql = "DELETE FROM users WHERE ID=$id";
 
     if ($conn->query($sql) === TRUE) {
         return "Record deleted successfully";

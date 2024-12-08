@@ -27,6 +27,7 @@
 
     if(isset($_GET["action"]) && $_GET["action"] == "delete"){
         deleteUser($_GET["id"]);
+        header("Location: admin_dashboard.php");
     }
 ?>
 
@@ -249,7 +250,7 @@ checkNotifications();
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="admindashboard.php?action=delete&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
+                                        <a href="admin_dashboard.php?action=delete&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
                                             <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                                         </a>
                                     </td>
