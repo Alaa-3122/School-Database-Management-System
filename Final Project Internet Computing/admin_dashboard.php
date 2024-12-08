@@ -196,7 +196,7 @@ checkNotifications();
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="admindashboard.php?action=delete&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
+                                        <a href="admin_dashboard.php?action=delete&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
                                             <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
                                         </a>
                                     </td>
