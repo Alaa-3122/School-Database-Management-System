@@ -192,7 +192,7 @@ checkNotifications();
                                     <td><?php echo $StudentsToDisplay[$i]["role"]?></td>
                                     <td><?php echo $StudentsToDisplay[$i]["status"]?></td>
                                     <td>
-                                        <a href="signup.php?action=edit&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
+                                        <a href="edit_student.php?action=edit&id=<?php echo $StudentsToDisplay[$i]['user_id']?>">
                                             <i class="fa-regular fa-pen-to-square" style="color: #00ffb3;"></i>
                                         </a>
                                     </td>

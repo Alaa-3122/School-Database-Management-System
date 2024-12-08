@@ -3,7 +3,7 @@
     error_reporting(0);
 
     if(isset($_GET["action"]) && $_GET["action"] == "edit"){
-        $userToEdit = selectUserByID($_GET["id"]);
+        $userToEdit = selectUserFacultyByID($_GET["id"]);
     }
 ?>
 <!DOCTYPE html>
