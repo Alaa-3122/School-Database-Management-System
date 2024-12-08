@@ -2,7 +2,7 @@
     require "db.php";
     error_reporting(0);
     session_start();
-    if($_SESSION["user_ID"] == null){
+    if($_SESSION["user_ID"] == null || $_SESSION["role"] != "Student"){
         header("Location: login.php");
     }
     $student_name = isset($_SESSION["name"]) ? $_SESSION["name"] : 'N/A';

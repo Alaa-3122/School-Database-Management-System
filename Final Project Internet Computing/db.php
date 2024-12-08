@@ -192,6 +192,48 @@ function selectcourse_student($id) {
     where s.user_id = $id";
     $result = $conn->query($sql);
 
+    $rows = [];
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        return null;
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+// Faculty Dashboard
+function getFacultyDept($id) {
+    $conn = getConnection();
+
+    
+    $sql = "select department from faculty
+    where user_id = $id";
+    
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['department'];
+    } else {
+        return null;
+    }
+}
+
+function selectcourse_faculty($id) {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT c.ID, c.course_code, c.course_name
+    from faculty as f inner join faculty_course as fc on f.ID = fc.faculty_id
+    inner join courses as c on c.ID = fc.course_id
+    where f.user_id = $id";
+
+    $result = $conn->query($sql);
+
     if ($result->num_rows > 0) {
         // Output data of each row
         while($row = $result->fetch_assoc()) {
@@ -207,7 +249,62 @@ function selectcourse_student($id) {
 }
 
 
+function studentsInCourse($id) {
+    $conn = getConnection();
 
+    // Select query
+    $sql = "SELECT u.ID, u.name, sc.grade
+    from users as u inner join students as s on u.ID = s.user_id
+    inner join student_courses as sc on sc.student_id = s.ID
+    where sc.course_id = $id";
+
+    $result = $conn->query($sql);
+    $rows = [];
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        return null;
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+function updateGrade($student_id, $course_id, $grade) {
+    $conn = getConnection();
+
+    // Delete query
+    $sql = "UPDATE `student_courses` SET `grade`='$grade'
+    WHERE student_id = $student_id and course_id = $course_id;
+    ";
+
+    if ($conn->query($sql) === TRUE) {
+        return "Grade Updated";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function getstudentIDFromUserID($id) {
+    $conn = getConnection();
+
+    
+    $sql = "select ID from students
+    where user_id = $id";
+    
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['ID'];
+    } else {
+        return null;
+    }
+}
 
 ?>
 

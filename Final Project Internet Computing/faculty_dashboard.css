@@ -16,7 +16,7 @@ body {
 }
 
 
-.student-info-box {
+.faculty-info-box {
     background-color: #e0f7fa; 
     color: #333;
     padding: 15px;
@@ -87,7 +87,7 @@ tr:hover {
     width: 100px;
 }
 
-.update-grade-form button {
+#submit {
     background-color: #1e3a8a;
     color: white;
     padding: 5px 15px;
