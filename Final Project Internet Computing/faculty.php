@@ -1,6 +1,10 @@
 <?php
     require "db.php";
     error_reporting(0);
+
+    if(isset($_GET["action"]) && $_GET["action"] == "edit"){
+        $userToEdit = selectUserByID($_GET["id"]);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +41,13 @@
 <?php
 $message = "";
 if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
-    
-    $message = insertUserFaculty($_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+
+    if($_GET["action"] == "edit"){
+        $message = updateUserFaculty($_GET["id"], $_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+        header("Location: admin_dashboard.php");
+    }else{
+        $message = insertUserFaculty($_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+    }
 }
 ?>
 
@@ -51,26 +60,26 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
             <?= $message; ?>
             </span>
 
-            <form action="faculty.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="faculty.php?action=<?php echo $_GET['action'];?>&id=<?php echo $_GET["id"];?>" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name" value="<?php echo $userToEdit["name"]?>">
                 </div>
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <input type="email" id="email" name="email" required placeholder="Enter your email" value="<?php echo $userToEdit["email"]?>">
                 </div>
                 <div class="input-group">
                     <label for="department">Department</label>
-                    <input type="text" id="department" name="department" required placeholder="Enter your department">
+                    <input type="text" id="department" name="department" required placeholder="Enter your department" value="<?php echo $userToEdit["department"]?>">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    <input type="password" id="password" name="password" required placeholder="Enter your password" value="<?php echo $userToEdit["password"]?>">
                 </div>
                 <div class="input-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again" value="<?php echo $userToEdit["password"]?>">
                 </div>
                 <input type="submit" name="submit" value="Sign Up" class="submit-btn">
             </form>

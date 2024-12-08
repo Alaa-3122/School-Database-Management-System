@@ -245,7 +245,7 @@ checkNotifications();
                                     <td><?php echo $FacultyToDisplay[$i]["role"]?></td>
                                     <td><?php echo $FacultyToDisplay[$i]["status"]?></td>
                                     <td>
-                                        <a href="signup.php?action=edit&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
+                                        <a href="faculty.php?action=edit&id=<?php echo $FacultyToDisplay[$i]['user_id']?>">
                                             <i class="fa-regular fa-pen-to-square" style="color: #00ffb3;"></i>
                                         </a>
                                     </td>

@@ -542,6 +542,56 @@ function deleteUser($id) {
     $conn->close();
 }
 
+
+function selectUserByID($id) {
+    $conn = getConnection();
+
+    
+    $sql = "select * from users as u inner join faculty as f on u.ID = f.user_id
+    where u.ID = $id";
+    
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    $conn->close();
+    if ($result && $row) {
+        return $row;
+    } else {
+        return null;
+    }
+}
+
+function updateUserFaculty($id, $name, $Email, $Password, $department) {
+    $conn = getConnection();
+    $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+    // Update query
+    $sql = "UPDATE `users` 
+    SET `name`='$name',`email`='$Email',`password`='$hashpass' WHERE ID = $id";
+
+    if ($conn->query($sql) == TRUE) {
+        return updateFaculty($id, $department);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function updateFaculty($id, $department) {
+    $conn = getConnection();
+
+    // Update query
+    $sql = "UPDATE `faculty` SET `department`='$department' WHERE user_id = $id";
+
+    if ($conn->query($sql) == TRUE) {
+        return "Record updated successfully";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+
 ?>
 
 
