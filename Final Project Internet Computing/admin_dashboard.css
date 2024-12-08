@@ -130,22 +130,20 @@ table tr:hover {
     transition: background-color 0.3s ease;
 }
 
-/* Styles for approve button */
 .btn-approve {
-    background-color: #1e3a8a; /* Green */
+    background-color: #3e8dd6;
     color: white;
 }
 
 .btn-approve:hover {
-    background-color: #218838; /* Darker Green */
+    background-color: #3e8dd6;
 }
 
-/* Styles for reject button */
 .btn-reject {
-    background-color: #dc3545; /* Red */
+    background-color: #9dcdec; 
     color: white;
 }
 
 .btn-reject:hover {
-    background-color: #c82333; /* Darker Red */
+    background-color: #9dcdec; 
 }

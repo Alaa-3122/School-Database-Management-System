@@ -44,7 +44,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 <body>
     <div class="container">
         <div class="form-wrapper">
-            <h2>Student Sign Up</h2>
+            <h2>Create Student</h2>
 
             <span style="color: #d82828;">
             <?= $message; ?>
@@ -53,21 +53,25 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
             <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    <input type="text" id="name" name="name" required placeholder="Enter full name">
                 </div>
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    <input type="email" id="email" name="email" required placeholder="Enter email">
+                </div>
+                <div class="input-group">
+                    <label for="gpa">GPA</label>
+                    <input type="number" id="gpa" name="gpa" required placeholder="Enter GPA">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    <input type="password" id="password" name="password" required placeholder="Enter password">
                 </div>
                 <div class="input-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter password again">
                 </div>
-                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
+                <input type="submit" name="submit" value="Create" class="submit-btn">
             </form>
         </div>
     </div>
