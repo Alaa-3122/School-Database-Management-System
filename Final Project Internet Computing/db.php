@@ -398,13 +398,84 @@ function rejectUser($nid) {
 }
 
 
+function insertUserStudent($Name, $Email, $Password) {
+    $conn = getConnection();
+    $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+    // Insert query
+    $sql = "INSERT INTO users (Name, Email, Password) 
+            VALUES ('$Name', '$Email', '$hashpass')";
+
+    if ($conn->query($sql) === TRUE) {
+        return insertStudent(findUserID($Email));
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
 
 
+function findUserID($email) {
+    $conn = getConnection();
+
+    
+    $sql = "select ID from users
+    where email = '$email'";
+    
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return $row['ID'];
+    } else {
+        return null;
+    }
+}
+
+function insertStudent($id) {
+    $conn = getConnection();
+    
+    // Insert query
+    $sql = "INSERT INTO `students`(`user_id`) VALUES ('$id')";
+
+    if ($conn->query($sql) === TRUE) {
+        return createNotification($id);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function createNotification($id) {
+    $conn = getConnection();
+    $msg = createMessage($id);
+    // Insert query
+    $sql = "INSERT INTO `notifications`(`user_id`, `is_read`, `message`)
+    VALUES ('$id','0','$msg')";
+
+    if ($conn->query($sql) === TRUE) {
+        return "New record created successfully";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
 
 
+function createMessage($id) {
+    $conn = getConnection();
 
-
-
+    
+    $sql = "select name, role from users
+    where ID = $id";
+    
+    $result = $conn->query($sql);
+    if ($result && $row = $result->fetch_assoc()) {
+        return "New " . $row['role'] . " " . $row["name"] . " has registered" ;
+    } else {
+        return null;
+    }
+}
 
 
 ?>

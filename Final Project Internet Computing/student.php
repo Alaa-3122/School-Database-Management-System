@@ -1,10 +1,14 @@
+<?php
+    require "db.php";
+    error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Sign Up</title>
-    <link rel="stylesheet" href="student.css">
+    <link rel="stylesheet" href="students.css">
     <script>
         function CheckForm(){
             var pass = document.getElementById("password").value;
@@ -29,11 +33,22 @@
         }
     </script>
 </head>
+
+<?php
+if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
+    echo "<pre>";
+    print_r($_POST);
+    // print_r($_GET);
+    // exit;
+    insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
+}
+?>
+
 <body>
     <div class="container">
         <div class="form-wrapper">
             <h2>Student Sign Up</h2>
-            <form action="submit_form.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name">
@@ -50,7 +65,7 @@
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
                 </div>
-                <button type="submit" class="submit-btn">Sign Up</button>
+                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
             </form>
         </div>
     </div>

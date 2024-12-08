@@ -15,7 +15,6 @@
     // To display stats
     $stats = getDashboardStats();
 
-    print_r($_POST);
     if(isset($_POST["action"])){
         if ($_POST["action"] == "Approve") {
             approveUserNotification($_POST["notification_id"]);
@@ -331,3 +330,58 @@ checkNotifications();
 
 </body>
 </html>
+<!-- 
+<div class="notification">
+        New student "John Doe" has registered.
+        <form>
+            <input type="submit" name="submit" value="Approve" class="btn-approve">
+            <input type="submit" name="submit" value="Reject" class="btn-reject">
+        </form>
+    </div>
+    <div class="notification">
+        New faculty "Dr. Smith" has registered.
+        <form>
+            <input type="submit" name="submit" value="Approve" class="btn-approve">
+            <input type="submit" name="submit" value="Reject" class="btn-reject">
+        </form>
+    </div> -->
+
+
+    <!-- 
+<script>
+    function checkNotifications() {
+        setInterval(() => {
+            $.ajax({
+                url: 'check_notifications.php', // URL of your server-side script
+                method: 'GET',
+                success: function(response) {
+                    updateNotifications(response);
+                },
+                error: function(error) {
+                    console.error('Error fetching notifications:', error);
+                }
+            });
+        }, 10000); // 10 seconds interval
+    }
+
+    function updateNotifications(data) {
+        const notifications = JSON.parse(data);
+        const notificationMenu = document.getElementById('notificationMenu');
+        notificationMenu.innerHTML = '<h2>Notifications</h2>'; // Clear previous notifications
+        notifications.forEach(notification => {
+            const notificationElement = document.createElement('div');
+            notificationElement.classList.add('notification');
+            notificationElement.innerHTML = `
+                ${notification.message}
+                <form method = "POST">
+                    <input type="hidden" name="notification_id" value="${notification.ID}">
+                    <input type="submit" name="action" value="Approve" class="btn-approve">
+                    <input type="submit" name="action" value="Reject" class="btn-reject">
+                </form>
+            `;
+            notificationMenu.appendChild(notificationElement);
+        });
+    }
+
+    checkNotifications();
+</script> -->
