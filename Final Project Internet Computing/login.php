@@ -1,5 +1,4 @@
 <?php
-
     require "db.php";
     error_reporting(0);
 ?>
@@ -10,7 +9,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Student Management System - Login</title>
-   
 </head>
 
 <?php
@@ -60,9 +58,8 @@
 
 ?>
 
-
 <style>
- /* General Styling */
+/* General Styling */
 * {
     margin: 0;
     padding: 0;
@@ -75,7 +72,7 @@ body {
     margin: 0;
     display: flex;
     align-items: center;
-  background: url('bk image.jpg');
+    background: url('bk image.jpg');
     background-size: cover; 
 }
 
@@ -157,9 +154,19 @@ body {
     }
 }
 
+.signup-link {
+    margin-top: 10%;
+    display: block;
+    font-size: 1.2em;
+    color: #007BFF;
+    text-decoration: none;
+}
 
+.signup-link:hover {
+    text-decoration: underline;
+}
 
-    </style>
+</style>
 <body>
     <div class="login-container">
         <h1>University Student Management System</h1>
@@ -176,9 +183,8 @@ body {
             <input type="password" id="password" name="password" placeholder="Enter your Password" required>
 
             <input type="submit" name="submit" value="Log In">
-        
         </form>
+        <a href="sign_up.php" class="signup-link">Don't have an account? Sign Up</a>
     </div>
 </body>
 </html>
-
