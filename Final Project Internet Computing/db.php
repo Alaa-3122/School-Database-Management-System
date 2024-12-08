@@ -478,6 +478,39 @@ function createMessage($id) {
 }
 
 
+
+function insertUserFaculty($Name, $Email, $Password, $department) {
+    $conn = getConnection();
+    $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+    // Insert query
+    $sql = "INSERT INTO users (Name, Email, Password, role) 
+            VALUES ('$Name', '$Email', '$hashpass', 'Faculty')";
+
+    if ($conn->query($sql) === TRUE) {
+        return insertFaculty(findUserID($Email), $department);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+
+
+function insertFaculty($id, $department) {
+    $conn = getConnection();
+    
+    // Insert query
+    $sql = "INSERT INTO `faculty`(`user_id`, `department`) VALUES ('$id','$department')";
+
+    if ($conn->query($sql) === TRUE) {
+        return createNotification($id);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
 ?>
 
 

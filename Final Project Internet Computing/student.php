@@ -35,8 +35,9 @@
 </head>
 
 <?php
+$message = "";
 if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
-    insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
+    $message = insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
 }
 ?>
 
@@ -44,6 +45,11 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
     <div class="container">
         <div class="form-wrapper">
             <h2>Student Sign Up</h2>
+            <!-- Added This -->
+            <span> 
+                <?= $message; ?>
+            </span>
+
             <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>

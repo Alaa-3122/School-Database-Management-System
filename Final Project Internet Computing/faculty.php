@@ -1,3 +1,7 @@
+<?php
+    require "db.php";
+    error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,10 +33,25 @@
         }
     </script>
 </head>
+
+<?php
+$message = "";
+if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
+    
+    $message = insertUserFaculty($_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+}
+?>
+
 <body>
     <div class="container">
         <div class="form-wrapper">
             <h2>Instructor Sign Up</h2>
+            
+            <!-- Added This -->
+            <span> 
+                <?= $message; ?>
+            </span>
+
             <form action="faculty.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
