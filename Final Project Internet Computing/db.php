@@ -511,6 +511,37 @@ function insertFaculty($id, $department) {
 
     $conn->close();
 }
+
+function deleteStudent($id) {
+    $conn = getConnection();
+
+    // Delete query
+    $sql = "DELETE FROM students WHERE user_id=$id";
+
+    if ($conn->query($sql) === TRUE) {
+        return deleteUser($id);
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
+function deleteUser($id) {
+    $conn = getConnection();
+
+    // Delete query
+    $sql = "DELETE FROM users WHERE id=$id";
+
+    if ($conn->query($sql) === TRUE) {
+        return "Record deleted successfully";
+    } else {
+        return "Error: " . $conn->error;
+    }
+
+    $conn->close();
+}
+
 ?>
 
 
