@@ -24,6 +24,10 @@
             header("Location: admin_dashboard.php");
         }
     }
+
+    if(isset($_GET["action"]) && $_GET["action"] == "delete"){
+        deleteUser($_GET["id"]);
+    }
 ?>
 
 <!DOCTYPE html>
