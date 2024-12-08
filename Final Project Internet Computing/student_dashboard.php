@@ -25,7 +25,8 @@
     <div class="header">
         <h1>Student Dashboard</h1>
     </div>
-
+    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    
     <div class="student-info-box">
         <p><strong>Student ID:</strong> <?php echo $student_id; ?></p>
         <p><strong>Student Name:</strong> <?php echo $student_name; ?></p>

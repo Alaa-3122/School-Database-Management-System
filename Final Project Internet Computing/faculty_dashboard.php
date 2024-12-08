@@ -38,6 +38,8 @@
         <h1>Faculty Dashboard</h1>
     </div>
 
+    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    
     <div class="faculty-info-box">
         <p><strong>Instructor ID:</strong> <?php echo $user_id; ?></p>
         <p><strong>Instructor Name:</strong> <?php echo $user_name; ?></p>
