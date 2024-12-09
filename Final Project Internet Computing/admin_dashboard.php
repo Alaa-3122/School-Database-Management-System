@@ -127,6 +127,8 @@ checkNotifications();
         <h1>Admin Dashboard</h1>
     </div>
 
+    <h2><a href="login.php" class="back-button">Log out</a></h2>
+
     <div class="container">
      <!-- Overall View Table -->   
         <div class="section">

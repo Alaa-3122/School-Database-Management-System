@@ -37,6 +37,8 @@
     <div class="header">
         <h1>Faculty Dashboard</h1>
     </div>
+    
+    <h2><a href="login.php" class="back-button">Log out</a></h2>
 
     <h2><a href="login.php" class="back-button">Log out</a></h2>
     
