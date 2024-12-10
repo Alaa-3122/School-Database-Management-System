@@ -1,6 +1,17 @@
 <?php
     require "db.php";
     error_reporting(0);
+
+    session_start();
+    if($_SESSION["user_ID"] != null){
+        if($_SESSION["role"] == "Admin"){
+            header("Location: admin_dashboard.php");
+        }elseif($_SESSION["role"] == "Faculty"){
+            header("Location: faculty_dashboard.php");
+        }elseif($_SESSION["role"] == "Student"){
+            header("Location: student_dashboard.php");
+        }
+    }
 ?>
 
 <!DOCTYPE html>

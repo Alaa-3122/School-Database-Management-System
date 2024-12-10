@@ -398,119 +398,288 @@ function rejectUser($nid) {
 }
 
 
+// function insertUserStudent($Name, $Email, $Password) {
+//     $conn = getConnection();
+//     $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+//     // Insert query
+//     $sql = "INSERT INTO users (Name, Email, Password) 
+//             VALUES ('$Name', '$Email', '$hashpass')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         return insertStudent(findUserID($Email));
+//     } else {
+//         return "Error: " . $conn->error;
+//     }
+
+//     $conn->close();
+// }
+
+
+// function findUserID($email) {
+//     $conn = getConnection();
+
+    
+//     $sql = "select ID from users
+//     where email = '$email'";
+    
+//     $result = $conn->query($sql);
+//     if ($result && $row = $result->fetch_assoc()) {
+//         return $row['ID'];
+//     } else {
+//         return null;
+//     }
+// }
+
+// function insertStudent($id) {
+//     $conn = getConnection();
+    
+//     // Insert query
+//     $sql = "INSERT INTO `students`(`user_id`) VALUES ('$id')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         return createNotification($id);
+//     } else {
+//         return "Error: " . $conn->error;
+//     }
+
+//     $conn->close();
+// }
+
+// function createNotification($id) {
+//     $conn = getConnection();
+//     $msg = createMessage($id);
+//     // Insert query
+//     $sql = "INSERT INTO `notifications`(`user_id`, `is_read`, `message`)
+//     VALUES ('$id','0','$msg')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         return "New record created successfully";
+//     } else {
+//         return "Error: " . $conn->error;
+//     }
+
+//     $conn->close();
+// }
+
+
+// function createMessage($id) {
+//     $conn = getConnection();
+
+    
+//     $sql = "select name, role from users
+//     where ID = $id";
+    
+//     $result = $conn->query($sql);
+//     if ($result && $row = $result->fetch_assoc()) {
+//         return "New " . $row['role'] . " " . $row["name"] . " has registered" ;
+//     } else {
+//         return null;
+//     }
+// }
 function insertUserStudent($Name, $Email, $Password) {
     $conn = getConnection();
-    $hashpass = password_hash($Password, PASSWORD_DEFAULT);
-    // Insert query
-    $sql = "INSERT INTO users (Name, Email, Password) 
-            VALUES ('$Name', '$Email', '$hashpass')";
+    try {
+        // Check if email already exists
+        if (doesEmailExist($Email)) {
+            return "Error: Email already exists.";
+        }
 
-    if ($conn->query($sql) === TRUE) {
-        return insertStudent(findUserID($Email));
-    } else {
-        return "Error: " . $conn->error;
+        $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+
+        // Prepared statement to insert user
+        $stmt = $conn->prepare("INSERT INTO users (Name, Email, Password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $Name, $Email, $hashpass);
+        
+        if ($stmt->execute()) {
+            return insertStudent(findUserID($Email));
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
     }
+}
 
-    $conn->close();
+function doesEmailExist($Email) {
+    $conn = getConnection();
+    try {
+        // Prepared statement to check email existence
+        $stmt = $conn->prepare("SELECT 1 FROM users WHERE email = ?");
+        $stmt->bind_param("s", $Email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->num_rows > 0;
+    } finally {
+        $conn->close();
+    }
 }
 
 
 function findUserID($email) {
     $conn = getConnection();
-
-    
-    $sql = "select ID from users
-    where email = '$email'";
-    
-    $result = $conn->query($sql);
-    if ($result && $row = $result->fetch_assoc()) {
-        return $row['ID'];
-    } else {
-        return null;
+    try {
+        // Prepared statement to find user ID
+        $stmt = $conn->prepare("SELECT ID FROM users WHERE Email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($row = $result->fetch_assoc()) {
+            return $row['ID'];
+        } else {
+            return null;
+        }
+    } finally {
+        $conn->close();
     }
 }
 
 function insertStudent($id) {
-    $conn = getConnection();
-    
-    // Insert query
-    $sql = "INSERT INTO `students`(`user_id`) VALUES ('$id')";
-
-    if ($conn->query($sql) === TRUE) {
-        return createNotification($id);
-    } else {
-        return "Error: " . $conn->error;
+    if ($id === null) {
+        return "Error: User ID not found.";
     }
 
-    $conn->close();
+    $conn = getConnection();
+    try {
+        // Prepared statement to insert student
+        $stmt = $conn->prepare("INSERT INTO students (user_id) VALUES (?)");
+        $stmt->bind_param("i", $id);
+        
+        if ($stmt->execute()) {
+            return createNotification($id);
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
 }
 
 function createNotification($id) {
-    $conn = getConnection();
-    $msg = createMessage($id);
-    // Insert query
-    $sql = "INSERT INTO `notifications`(`user_id`, `is_read`, `message`)
-    VALUES ('$id','0','$msg')";
-
-    if ($conn->query($sql) === TRUE) {
-        return "New record created successfully";
-    } else {
-        return "Error: " . $conn->error;
+    if ($id === null) {
+        return "Error: User ID not found.";
     }
 
-    $conn->close();
-}
+    $conn = getConnection();
+    try {
+        $msg = createMessage($id);
+        if ($msg === null) {
+            return "Error: Unable to create message.";
+        }
 
+        // Prepared statement to insert notification
+        $stmt = $conn->prepare("INSERT INTO notifications (user_id, is_read, message) VALUES (?, 0, ?)");
+        $stmt->bind_param("is", $id, $msg);
+
+        if ($stmt->execute()) {
+            return "New record created successfully";
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
+}
 
 function createMessage($id) {
     $conn = getConnection();
+    try {
+        // Prepared statement to create message
+        $stmt = $conn->prepare("SELECT Name, Role FROM users WHERE ID = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    
-    $sql = "select name, role from users
-    where ID = $id";
-    
-    $result = $conn->query($sql);
-    if ($result && $row = $result->fetch_assoc()) {
-        return "New " . $row['role'] . " " . $row["name"] . " has registered" ;
-    } else {
-        return null;
+        if ($row = $result->fetch_assoc()) {
+            return "New " . $row['Role'] . " " . $row['Name'] . " has registered";
+        } else {
+            return null;
+        }
+    } finally {
+        $conn->close();
     }
 }
 
 
+// function insertUserFaculty($Name, $Email, $Password, $department) {
+//     $conn = getConnection();
+//     $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+//     // Insert query
+//     $sql = "INSERT INTO users (Name, Email, Password, role) 
+//             VALUES ('$Name', '$Email', '$hashpass', 'Faculty')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         return insertFaculty(findUserID($Email), $department);
+//     } else {
+//         return "Error: " . $conn->error;
+//     }
+
+//     $conn->close();
+// }
+
+
+
+// function insertFaculty($id, $department) {
+//     $conn = getConnection();
+    
+//     // Insert query
+//     $sql = "INSERT INTO `faculty`(`user_id`, `department`) VALUES ('$id','$department')";
+
+//     if ($conn->query($sql) === TRUE) {
+//         return createNotification($id);
+//     } else {
+//         return "Error: " . $conn->error;
+//     }
+
+//     $conn->close();
+// }
 
 function insertUserFaculty($Name, $Email, $Password, $department) {
     $conn = getConnection();
-    $hashpass = password_hash($Password, PASSWORD_DEFAULT);
-    // Insert query
-    $sql = "INSERT INTO users (Name, Email, Password, role) 
-            VALUES ('$Name', '$Email', '$hashpass', 'Faculty')";
+    try {
+        // Check if email already exists
+        if (doesEmailExist($Email)) {
+            return "Error: Email already exists.";
+        }
 
-    if ($conn->query($sql) === TRUE) {
-        return insertFaculty(findUserID($Email), $department);
-    } else {
-        return "Error: " . $conn->error;
+        $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+
+        // Prepared statement to insert user
+        $stmt = $conn->prepare("INSERT INTO users (Name, Email, Password, Role) VALUES (?, ?, ?, 'Faculty')");
+        $stmt->bind_param("sss", $Name, $Email, $hashpass);
+        
+        if ($stmt->execute()) {
+            return insertFaculty(findUserID($Email), $department);
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
     }
-
-    $conn->close();
 }
-
-
 
 function insertFaculty($id, $department) {
-    $conn = getConnection();
-    
-    // Insert query
-    $sql = "INSERT INTO `faculty`(`user_id`, `department`) VALUES ('$id','$department')";
-
-    if ($conn->query($sql) === TRUE) {
-        return createNotification($id);
-    } else {
-        return "Error: " . $conn->error;
+    if ($id === null) {
+        return "Error: User ID not found.";
     }
 
-    $conn->close();
+    $conn = getConnection();
+    try {
+        // Prepared statement to insert faculty
+        $stmt = $conn->prepare("INSERT INTO faculty (user_id, department) VALUES (?, ?)");
+        $stmt->bind_param("is", $id, $department);
+
+        if ($stmt->execute()) {
+            return createNotification($id);
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
 }
+
 
 function deleteStudent($id) {
     $conn = getConnection();
