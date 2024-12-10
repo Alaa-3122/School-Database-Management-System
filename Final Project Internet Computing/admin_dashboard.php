@@ -11,9 +11,13 @@
     // To dispplay faculty
     $FacultyToDisplay = selectfaculty();
     // To display courses and instructor
-    $coursesInstructor = selectcourse_admin();
+    $coursesInstructor = selectcourseInstructor_admin();
     // To display stats
     $stats = getDashboardStats();
+    // To display Courses and students
+    $coursesStudents = selectCoursesStudents();
+    // To display Courses
+    $courses = selectCourses();
 
     if(isset($_POST["action"])){
         if ($_POST["action"] == "Approve") {

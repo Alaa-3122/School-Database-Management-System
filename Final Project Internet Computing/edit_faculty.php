@@ -45,7 +45,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Update"){
     if($_GET["action"] == "edit"){
         $message = updateUserFaculty($_GET["id"], $_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
 
-        if ($message == "New record created successfully") {
+        if ($message == "Record updated successfully") {
             header("Location: admin_dashboard.php");
         }
     }

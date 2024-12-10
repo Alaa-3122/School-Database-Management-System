@@ -9,35 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Sign Up</title>
     <link rel="stylesheet" href="create_course.css">
-    <script>
-        function CheckForm(){
-            var pass = document.getElementById("password").value;
-            var confirmPass = document.getElementById("confirmPassword").value;
-           
-            if(pass.trim() == ""){
-                alert("Please enter your password");
-                return false;
-            }
-
-            if(confirmPass.trim() == ""){
-                alert("Please enter the password again");
-                return false;
-            }
-
-            if(pass != confirmPass){
-                alert("The passwords should be the same");
-                return false;
-            }
-
-            return true;  
-        }
-    </script>
 </head>
 
 <?php
 $message = "";
-if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
-    $message = insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
+if(isset($_POST['submit']) && $_POST['submit'] == "Create Course"){
+    $message = insertCourse($_POST["course_code"],$_POST["course_name"]);
+    if ($message == "New course created successfully") {
+        header("Location: admin_dashboard.php");
+    }
 }
 ?>
 
@@ -51,14 +31,14 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 </div>
 
         
-            <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="create_course.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Course Code</label>
-                    <input type="text" id="Course code" name="course code" required placeholder="Enter the course name">
+                    <input type="text" id="Course code" name="course_code" required placeholder="Enter the course name">
                 </div>
                 <div class="input-group">
                 <label for="name">Course Name</label>
-                    <input type="text" id="Course name" name="course name" required placeholder="Enter the course code">
+                    <input type="text" id="Course name" name="course_name" required placeholder="Enter the course code">
                 </div>
                 <input type="submit" name="submit" value="Create Course" class="submit-btn">
             </form>
