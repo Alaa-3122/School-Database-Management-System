@@ -290,7 +290,7 @@ checkNotifications();
                             <th>Course Name</th>
                             <th>Faculty ID</th>                           
                             <th>User ID</th>
-                            <th>Name</th>
+                            <th>Instructor Name</th>
                         </tr>
                     </thead>
                     <tbody>
