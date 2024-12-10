@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructor Sign Up</title>
-    <link rel="stylesheet" href="faculty.css">
+    <link rel="stylesheet" href="create_faculty.css">
     <script>
         function CheckForm(){
             var pass = document.getElementById("password").value;
@@ -54,7 +54,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 <body>
     <div class="container">
         <div class="form-wrapper">
-            <h2>Instructor Sign Up</h2>
+            <h2>Create Instructor</h2>
             
             <div style="color: black; text-align: center;">
     <?= $message; ?>
@@ -81,10 +81,9 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again" value="<?php echo $userToEdit["password"]?>">
                 </div>
-                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
+                <input type="submit" name="submit" value="Create" class="submit-btn">
             </form>
         </div>
     </div>
-   
 </body>
 </html>

@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Sign Up</title>
-    <link rel="stylesheet" href="student.css">
+    <link rel="stylesheet" href="create_course.css">
     <script>
         function CheckForm(){
             var pass = document.getElementById("password").value;
@@ -44,7 +44,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 <body>
     <div class="container">
         <div class="form-wrapper">
-            <h2>Student Sign Up</h2>
+            <h2>Create Course</h2>
 
             <div style="color: black; text-align: center;">
     <?= $message; ?>
@@ -53,25 +53,16 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
         
             <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                    <label for="name">Course Code</label>
+                    <input type="text" id="Course code" name="course code" required placeholder="Enter the course name">
                 </div>
                 <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <label for="name">Course Name</label>
+                    <input type="text" id="Course name" name="course name" required placeholder="Enter the course code">
                 </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
-                </div>
-                <div class="input-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
-                </div>
-                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
+                <input type="submit" name="submit" value="Create Course" class="submit-btn">
             </form>
         </div>
     </div>
-   
 </body>
 </html>
