@@ -1,10 +1,6 @@
 <?php
     require "db.php";
     error_reporting(0);
-
-    if(isset($_GET["action"]) && $_GET["action"] == "edit"){
-        $userToEdit = selectUserFacultyByID($_GET["id"]);
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,13 +36,11 @@
 
 <?php
 $message = "";
-if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
+if(isset($_POST['submit']) && $_POST['submit'] == "Create"){
 
-    if($_GET["action"] == "edit"){
-        $message = updateUserFaculty($_GET["id"], $_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+    $message = insertUserFaculty($_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
+    if ($message == "New record created successfully") {
         header("Location: admin_dashboard.php");
-    }else{
-        $message = insertUserFaculty($_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
     }
 }
 ?>
@@ -60,7 +54,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
     <?= $message; ?>
 </div>
 
-            <form action="faculty.php?action=<?php echo $_GET['action'];?>&id=<?php echo $_GET["id"];?>" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="create_faculty.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name" value="<?php echo $userToEdit["name"]?>">
