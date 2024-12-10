@@ -815,7 +815,7 @@ function selectCoursesStudents() {
     $conn = getConnection();
 
     // Select query
-    $sql = "SELECT c.course_code, c.course_name, s.ID, s.user_id, u.name, sc.grade
+    $sql = "SELECT c.ID, c.course_code, c.course_name, s.ID as student_id, s.user_id, u.name, sc.grade
     from students as s inner join student_courses as sc on s.ID = sc.student_id
     inner join courses as c on c.ID = sc.course_id
     inner join users as u on u.ID = s.user_id";
@@ -914,6 +914,24 @@ function enrollStudent($sid, $cid) {
         
         if ($stmt->execute()) {
             return "New Student enrolled successfully";
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
+}
+
+function assignFaculty($fid, $cid) {
+    $conn = getConnection();
+    try {
+
+        // Prepared statement to insert user
+        $stmt = $conn->prepare("INSERT INTO faculty_course (faculty_id, course_id) VALUES (?, ?)");
+        $stmt->bind_param("ii", $fid, $cid);
+        
+        if ($stmt->execute()) {
+            return "New Faculty Assigned successfully";
         } else {
             return "Error: " . $conn->error;
         }

@@ -39,6 +39,16 @@
         header("Location: login.php");
         exit;
     }
+
+    if(isset($_POST["submit_student"]) && $_POST["submit_student"] == "Enroll"){
+        enrollStudent($_POST["student_id"], $_POST["course_id"]);
+        header("Location: admin_dashboard.php");
+    }
+
+    if(isset($_POST["submit_faculty"]) && $_POST["submit_faculty"] == "Assign"){
+        assignFaculty($_POST["faculty_id"], $_POST["course_id"]);
+        header("Location: admin_dashboard.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -150,7 +160,7 @@ checkNotifications();
         <div class="section">
         <div class="section-header">
         <h2>Overall View</h2>
-        <input type="submit" value="Create Admin" class="button-create">
+        <a href="/Final Project Internet Computing/create_admin.php"><input type="submit" value="Create Admin" class="button-create"></a>
     </div>
             
             <div class="table-container">
@@ -184,7 +194,7 @@ checkNotifications();
         <div class="section">
         <div class="section-header">
         <h2>Students</h2>
-        <input type="submit" value="Create Student" class="button-create">
+        <a href="/Final Project Internet Computing/create_student.php"><input type="submit" value="Create Student" class="button-create"></a>
     </div>
             
             <div class="table-container">
@@ -239,7 +249,8 @@ checkNotifications();
         <div class="section">
         <div class="section-header">
         <h2>Faculty</h2>
-        <input type="submit" value="Create Faculty" class="button-create">
+        <a href="/Final Project Internet Computing/create_faculty.php"><input type="submit" value="Create Faculty" class="button-create"></a>
+        
     </div>
            
             <div class="table-container">
@@ -293,7 +304,8 @@ checkNotifications();
 <div class="section">
     <div class="section-header">
         <h2>Courses</h2>
-        <input type="submit" value="Create Course" class="button-create">
+        <a href="/Final Project Internet Computing/create_course.php"><input type="submit" value="Create Course" class="button-create"></a>
+        
     </div>
 
     <div class="table-container">
@@ -312,28 +324,35 @@ checkNotifications();
             </thead>
             <tbody>
                 <?php
-                for ($i = 0; $i < count($coursesInstructor); $i++) {
+                for ($i = 0; $i < count($courses); $i++) {
                 ?>
                     <tr>
-                        <td><?php echo $coursesInstructor[$i]["ID"]; ?></td>
-                        <td><?php echo $coursesInstructor[$i]["course_code"]; ?></td>
-                        <td><?php echo $coursesInstructor[$i]["course_name"]; ?></td>
-                        <td>
-                            <!-- Input for Student ID (only numbers) -->
-                            <input type="number" name="student_id_<?php echo $coursesInstructor[$i]["ID"]; ?>" placeholder="Enter ID" required>
-                        </td>
-                        <td>
-                            <!-- Submit button to add student -->
-                            <input type="submit" value="Enroll Student" name="submit_student_<?php echo $coursesInstructor[$i]["ID"]; ?>">
-                        </td>
+                        <td><?php echo $courses[$i]["ID"]; ?></td>
+                        <td><?php echo $courses[$i]["course_code"]; ?></td>
+                        <td><?php echo $courses[$i]["course_name"]; ?></td>
+                        <form method="post">
+                            <td>
+                                <!-- Input for Student ID (only numbers) -->
+                                <input type="hidden" name="course_id" value="<?php echo $courses[$i]['ID']; ?>">
+                                <input type="number" name="student_id" placeholder="Enter Student ID" required>
+                            </td>
+                            <td>
+                                <!-- Submit button to add student -->
+                                <input type="submit" value="Enroll" name="submit_student">
+                            </td>
+                        </form>
+                        <form method="post">
                         <td>
                             <!-- Input for Faculty  -->
-                            <input type="number" name="faculty_id_<?php echo $coursesInstructor[$i]["ID"]; ?>" placeholder="Enter Faculty ID" required>
+                            <input type="hidden" name="course_id" value="<?php echo $courses[$i]['ID']; ?>">
+                            <input type="number" name="faculty_id" placeholder="Enter Faculty ID" required>
                         </td>
                         <td>
                             <!-- Submit button to assign faculty -->
-                            <input type="submit" value="Assign Faculty" name="submit_faculty_<?php echo $coursesInstructor[$i]["ID"]; ?>">
+                            <input type="submit" value="Assign" name="submit_faculty">
                         </td>
+                        </form>
+                        
                       
                     </tr>
                 <?php
@@ -404,15 +423,16 @@ checkNotifications();
                     <tbody>
                         <?php
                             
-                            for($i = 0; $i < count($coursesInstructor); $i++){
+                            for($i = 0; $i < count($coursesStudents); $i++){
                                 ?>
                                 <tr>
-                                    <td><?php echo $coursesInstructor[$i]["ID"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["course_code"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["course_name"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["faculty_id"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["user_id"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["name"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["ID"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["course_code"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["course_name"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["student_id"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["user_id"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["name"]?></td>
+                                    <td><?php echo $coursesStudents[$i]["grade"]?></td>
                                 </tr>
                                 <?php
                             }

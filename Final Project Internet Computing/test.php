@@ -28,7 +28,10 @@
     //     $students[$i] = studentsInCourse($courses[$i]["ID"]);
     // }
     // print_r($students);
-    $newNotifications = getNewNotifications();
-    print_r($newNotifications);
-    enrollStudent(13, 1);
+    // $newNotifications = getNewNotifications();
+    // print_r($newNotifications);
+    // enrollStudent(13, 1);
+    $coursesStudents = selectCoursesStudents();
+    print_r($coursesStudents);
+    assignFaculty(18, 4);
 ?>

@@ -36,7 +36,7 @@
 
 <?php
 $message = "";
-if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
+if(isset($_POST['submit']) && $_POST['submit'] == "Create Admin"){
     $message = insertAdmin($_POST["name"], $_POST["email"], $_POST["password"]);
     if ($message == "New record created successfully") {
         header("Location: admin_dashboard.php");
@@ -54,7 +54,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 </div>
 
         
-            <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="create_admin.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name">
