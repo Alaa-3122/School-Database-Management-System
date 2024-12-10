@@ -148,7 +148,11 @@ checkNotifications();
     <div class="container">
      <!-- Overall View Table -->   
         <div class="section">
-            <h2>Overall View</h2>
+        <div class="section-header">
+        <h2>Overall View</h2>
+        <input type="submit" value="Create Admin" class="button-create">
+    </div>
+            
             <div class="table-container">
                 <table>
                     <thead>
@@ -178,7 +182,11 @@ checkNotifications();
         </div>
         <!-- Students Table -->
         <div class="section">
-            <h2>Students</h2>
+        <div class="section-header">
+        <h2>Students</h2>
+        <input type="submit" value="Create Student" class="button-create">
+    </div>
+            
             <div class="table-container">
                 <table>
                     <thead>
@@ -229,7 +237,11 @@ checkNotifications();
 
         <!-- Faculty Table -->
         <div class="section">
-            <h2>Faculty</h2>
+        <div class="section-header">
+        <h2>Faculty</h2>
+        <input type="submit" value="Create Faculty" class="button-create">
+    </div>
+           
             <div class="table-container">
                 <table>
                     <thead>
@@ -277,46 +289,68 @@ checkNotifications();
                 </table>
             </div>
         </div>
-
         <!-- Courses Table -->
-        <div class="section">
-            <h2>Courses</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course ID</th>
-                            <th>Course Code</th>
-                            <th>Course Name</th>
-                            <th>Add Student</th>                           
-                            <th>Add Faculty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            
-                            for($i = 0; $i < count($coursesInstructor); $i++){
-                                ?>
-                                <tr>
-                                    <td><?php echo $coursesInstructor[$i]["ID"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["course_code"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["course_name"]?></td>
-                                    <td>field an input to add Student</td>
-                                    <td>field an input to add Faculty</td>
-                                </tr>
-                                <?php
-                            }
-                        
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="section">
+    <div class="section-header">
+        <h2>Courses</h2>
+        <input type="submit" value="Create Course" class="button-create">
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Course ID</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th colspan="2">Add Student</th> 
+                    <th colspan="2">Add Faculty</th>
+                </tr>
+                <tr>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                for ($i = 0; $i < count($coursesInstructor); $i++) {
+                ?>
+                    <tr>
+                        <td><?php echo $coursesInstructor[$i]["ID"]; ?></td>
+                        <td><?php echo $coursesInstructor[$i]["course_code"]; ?></td>
+                        <td><?php echo $coursesInstructor[$i]["course_name"]; ?></td>
+                        <td>
+                            <!-- Input for Student ID (only numbers) -->
+                            <input type="number" name="student_id_<?php echo $coursesInstructor[$i]["ID"]; ?>" placeholder="Enter ID" required>
+                        </td>
+                        <td>
+                            <!-- Submit button to add student -->
+                            <input type="submit" value="Enroll Student" name="submit_student_<?php echo $coursesInstructor[$i]["ID"]; ?>">
+                        </td>
+                        <td>
+                            <!-- Input for Faculty  -->
+                            <input type="number" name="faculty_id_<?php echo $coursesInstructor[$i]["ID"]; ?>" placeholder="Enter Faculty ID" required>
+                        </td>
+                        <td>
+                            <!-- Submit button to assign faculty -->
+                            <input type="submit" value="Assign Faculty" name="submit_faculty_<?php echo $coursesInstructor[$i]["ID"]; ?>">
+                        </td>
+                      
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 
 
         <!-- Courses Table (each course and who's teaching it) -->
         <div class="section">
-            <h2>Courses/Instructor</h2>
+            <h2>Course Offering</h2>
+           
             <div class="table-container">
                 <table>
                     <thead>
