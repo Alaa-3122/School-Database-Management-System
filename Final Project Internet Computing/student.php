@@ -42,36 +42,37 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
 ?>
 
 <body>
-    <div class="container">
-        <div class="form-wrapper">
-            <h2>Student Sign Up</h2>
+<div class="container">
+    <div class="form-wrapper">
+        <h2>Student Sign Up</h2>
 
-            <div style="color: black; text-align: center;">
-    <?= $message; ?>
+        <div style="color: black; text-align: center;">
+            <?= $message; ?>
+        </div>
+
+        <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <div class="input-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
+            </div>
+            <input type="submit" name="submit" value="Sign Up" class="submit-btn">
+        </form>
+        
+        <a href="login.php" class="login-link">Already have an account? Log In</a>
+    </div>
 </div>
 
-        
-            <form action="student.php" method="POST" id="signInForm" onsubmit="return CheckForm()">
-                <div class="input-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
-                </div>
-                <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
-                </div>
-                <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter your password">
-                </div>
-                <div class="input-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Enter your password again">
-                </div>
-                <input type="submit" name="submit" value="Sign Up" class="submit-btn">
-            </form>
-        </div>
-    </div>
-   
 </body>
 </html>

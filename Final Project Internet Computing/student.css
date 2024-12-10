@@ -76,4 +76,15 @@ input:focus {
     background-color:#6f98df;
 }
 
+.login-link {
+    margin-top: 5%;
+    display: block;
+    font-size: 1.2em;
+    color: #1f77d4;
+    text-decoration: none;
+}
+s
+.login-link:hover {
+    text-decoration: underline;
+}
 

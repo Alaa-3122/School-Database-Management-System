@@ -75,3 +75,15 @@ input:focus {
 .submit-btn:hover {
     background-color: #6f98df;
 }
+
+.login-link {
+    margin-top: 5%;
+    display: block;
+    font-size: 1.2em;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
