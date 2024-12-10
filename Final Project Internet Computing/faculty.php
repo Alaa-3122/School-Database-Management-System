@@ -56,9 +56,9 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
         <div class="form-wrapper">
             <h2>Instructor Sign Up</h2>
             
-            <span style="color: #d82828;">
-            <?= $message; ?>
-            </span>
+            <div style="color: black; text-align: center;">
+    <?= $message; ?>
+</div>
 
             <form action="faculty.php?action=<?php echo $_GET['action'];?>&id=<?php echo $_GET["id"];?>" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
