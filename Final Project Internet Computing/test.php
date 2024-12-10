@@ -4,7 +4,7 @@
     error_reporting(0);
     $student = selectstudents();
     $faculty =selectfaculty();
-    $courses = selectcourse_admin();
+
     $stats = getDashboardStats();
     echo "<pre>";
     // print_r($student);
@@ -30,4 +30,5 @@
     // print_r($students);
     $newNotifications = getNewNotifications();
     print_r($newNotifications);
+    enrollStudent(13, 1);
 ?>

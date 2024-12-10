@@ -903,6 +903,25 @@ function insertCourse($code, $name) {
     }
 }
 
+function enrollStudent($sid, $cid) {
+    $conn = getConnection();
+    try {
+
+        // Prepared statement to insert user
+        // INSERT INTO `courses`(`ID`, `course_name`, `course_code`) VALUES ('[value-1]','[value-2]','[value-3]')
+        $stmt = $conn->prepare("INSERT INTO student_courses (student_id, course_id) VALUES (?, ?)");
+        $stmt->bind_param("ii", $sid, $cid);
+        
+        if ($stmt->execute()) {
+            return "New Student enrolled successfully";
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
+}
+
 ?>
 
 
