@@ -22,6 +22,12 @@
         updateGrade($studentID, $_POST["course_id"], $_POST["grade"]);
         header("Location: faculty_dashboard.php");        
     }
+
+    if(isset($_POST["logout"]) && $_POST["logout"] == "logout"){
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +44,13 @@
         <h1>Faculty Dashboard</h1>
     </div>
     
-    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    <!-- <h2><a href="login.php" class="back-button">Log out</a></h2> -->
 
-    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    <h2>
+        <form method="post">
+            <button type="submit" name="logout" value="logout" class="back-button">Logout</button>
+        </form>
+    </h2>
     
     <div class="faculty-info-box">
         <p><strong>Instructor ID:</strong> <?php echo $user_id; ?></p>

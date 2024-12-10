@@ -29,6 +29,12 @@
         deleteUser($_GET["id"]);
         header("Location: admin_dashboard.php");
     }
+
+    if(isset($_POST["logout"]) && $_POST["logout"] == "logout"){
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -127,7 +133,13 @@ checkNotifications();
         <h1>Admin Dashboard</h1>
     </div>
 
-    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    <!-- <h2><a href="login.php" class="back-button">Log out</a></h2> -->
+
+    <h2>
+        <form method="post">
+            <button type="submit" name="logout" value="logout" class="back-button">Logout</button>
+        </form>
+    </h2>
 
     <div class="container">
      <!-- Overall View Table -->   
@@ -313,20 +325,7 @@ checkNotifications();
     <!-- Notifications Menu -->
     <div class="notification-menu" id="notificationMenu">
         <h2>Notifications</h2>
-        <div class="notification">
-            New student "John Doe" has registered.
-            <form>
-                <input type="submit" name="submit" value="Approve" class="btn-approve">
-                <input type="submit" name="submit" value="Reject" class="btn-reject">
-            </form>
-        </div>
-        <div class="notification">
-            New faculty "Dr. Smith" has registered.
-            <form>
-                <input type="submit" name="submit" value="Approve" class="btn-approve">
-                <input type="submit" name="submit" value="Reject" class="btn-reject">
-            </form>
-        </div>
+        
     </div>
 
     <script>

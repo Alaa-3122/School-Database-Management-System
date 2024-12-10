@@ -9,6 +9,12 @@
     $student_id = isset($_SESSION["user_ID"]) ? $_SESSION["user_ID"] : 'N/A';
     $coursecount = getStudentCourseCount($_SESSION["user_ID"]);
     $courses = selectcourse_student($_SESSION["user_ID"]);
+
+    if(isset($_POST["logout"]) && $_POST["logout"] == "logout"){
+        session_destroy();
+        header("Location: login.php");
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +32,13 @@
         <h1>Student Dashboard</h1>
     </div>
 
-    <h2><a href="login.php" class="back-button">Log out</a></h2>
+    <!-- <h2><a href="login.php" class="back-button">Log out</a></h2> -->
+
+    <h2>
+        <form method="post">
+            <button type="submit" name="logout" value="logout" class="back-button">Logout</button>
+        </form>
+    </h2>
 
     <div class="student-info-box">
         <p><strong>Student ID:</strong> <?php echo $student_id; ?></p>
