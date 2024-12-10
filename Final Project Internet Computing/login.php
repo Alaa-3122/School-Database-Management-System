@@ -26,7 +26,7 @@
 
     $text = "";
     if(isset($_POST["submit"])){
-        $results = checkpassword($_POST["user_id"], $_POST["password"]);
+        $results = checkpassword($_POST["email"], $_POST["password"]);
         if($results['success'] == 1)
         {
             session_start();
@@ -54,11 +54,11 @@
                 }
 
             }elseif($_SESSION["status"] == "Pending"){
-                
+                session_destroy();
                 $text = "Account Waiting Approval";
 
             }elseif($_SESSION["status"] == "Rejected"){
-                
+                session_destroy();
                 $text = "Account Rejected";
             }
 
@@ -187,8 +187,8 @@ body {
                 <?= $text; ?>
             </span>
 
-            <label for="user_id">User ID</label>
-            <input type="number" id="user_id" name="user_id" placeholder="Enter your User ID" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your Email" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your Password" required>

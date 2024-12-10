@@ -57,9 +57,9 @@
         <p><strong>Instructor Name:</strong> <?php echo $user_name; ?></p>
         <p><strong>Department:</strong> <?php echo isset($department) ? $department : 'N/A'; ?></p>
     </div>
-
+    <?php if(!empty($courses)){ ?>
     <?php
-        
+            
             for($i = 0; $i < count($courses); $i++){
                 ?>
                 <div class="section">
@@ -104,6 +104,12 @@
             }
         
         ?>
+
+        <?php }else{ ?>
+            <div class="no-courses-message">
+                <p>No courses found for this instructor.</p>
+            </div>
+        <?php } ?>
 
 </body>
 </html>

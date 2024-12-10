@@ -18,11 +18,11 @@ function getConnection() {
 }
 
 // Function to check password for logging in AND HASH
-function checkpassword($id, $pass) {
+function checkpassword($email, $pass) {
     $conn = getConnection();
     
     // Select query
-    $sql = "SELECT * FROM users where ID = $id";
+    $sql = "SELECT * FROM users where email = '$email'";
     $result = $conn->query($sql);
     $conn->close();
 
@@ -223,29 +223,57 @@ function getFacultyDept($id) {
     }
 }
 
+// function selectcourse_faculty($id) {
+//     $conn = getConnection();
+
+//     // Select query
+//     $sql = "SELECT c.ID, c.course_code, c.course_name
+//     from faculty as f inner join faculty_course as fc on f.ID = fc.faculty_id
+//     inner join courses as c on c.ID = fc.course_id
+//     where f.user_id = $id";
+
+//     $result = $conn->query($sql);
+
+//     if ($result->num_rows > 0) {
+//         // Output data of each row
+//         while($row = $result->fetch_assoc()) {
+//             $rows[] = $row;
+//         }
+//     } else {
+//         return null;
+//     }
+    
+//     return $rows;
+    
+//     $conn->close();
+// }
+
+
 function selectcourse_faculty($id) {
     $conn = getConnection();
 
+    // Sanitize the input to prevent SQL injection
+    $id = $conn->real_escape_string($id);
+
     // Select query
     $sql = "SELECT c.ID, c.course_code, c.course_name
-    from faculty as f inner join faculty_course as fc on f.ID = fc.faculty_id
-    inner join courses as c on c.ID = fc.course_id
-    where f.user_id = $id";
+            FROM faculty AS f
+            INNER JOIN faculty_course AS fc ON f.ID = fc.faculty_id
+            INNER JOIN courses AS c ON c.ID = fc.course_id
+            WHERE f.user_id = '$id'";
 
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while($row = $result->fetch_assoc()) {
+    $rows = []; // Initialize an empty array
+    if ($result && $result->num_rows > 0) {
+        // Fetch all rows
+        while ($row = $result->fetch_assoc()) {
             $rows[] = $row;
         }
-    } else {
-        return null;
     }
-    
-    return $rows;
-    
-    $conn->close();
+
+    $conn->close(); // Ensure the connection is closed
+    return $rows; // Return the array (empty if no results)
 }
 
 
