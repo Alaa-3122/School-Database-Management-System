@@ -184,7 +184,6 @@ checkNotifications();
                             <th>Name</th>
                             <th>GPA</th>
                             <th>Email</th>
-                            <th>Password</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -202,7 +201,6 @@ checkNotifications();
                                     <td><?php echo $StudentsToDisplay[$i]["name"]?></td>
                                     <td><?php echo $StudentsToDisplay[$i]["gpa"]?></td>
                                     <td><?php echo $StudentsToDisplay[$i]["email"]?></td>
-                                    <td><?php echo $StudentsToDisplay[$i]["password"]?></td>
                                     <td><?php echo $StudentsToDisplay[$i]["role"]?></td>
                                     <td><?php echo $StudentsToDisplay[$i]["status"]?></td>
                                     <td>
@@ -237,7 +235,6 @@ checkNotifications();
                             <th>Name</th>
                             <th>Department</th>
                             <th>Email</th>
-                            <th>Password</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -255,7 +252,6 @@ checkNotifications();
                                     <td><?php echo $FacultyToDisplay[$i]["name"]?></td>
                                     <td><?php echo $FacultyToDisplay[$i]["department"]?></td>
                                     <td><?php echo $FacultyToDisplay[$i]["email"]?></td>
-                                    <td><?php echo $FacultyToDisplay[$i]["password"]?></td>
                                     <td><?php echo $FacultyToDisplay[$i]["role"]?></td>
                                     <td><?php echo $FacultyToDisplay[$i]["status"]?></td>
                                     <td>
@@ -301,7 +297,6 @@ checkNotifications();
                                     <td><?php echo $coursesInstructor[$i]["ID"]?></td>
                                     <td><?php echo $coursesInstructor[$i]["course_code"]?></td>
                                     <td><?php echo $coursesInstructor[$i]["course_name"]?></td>
-                                    <td><?php echo $coursesInstructor[$i]["faculty_id"]?></td>
                                     <td>field an input to add Student</td>
                                     <td>field an input to add Faculty</td>
                                 </tr>
