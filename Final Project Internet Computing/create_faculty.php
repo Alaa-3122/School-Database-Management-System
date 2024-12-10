@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructor Sign Up</title>
-    <link rel="stylesheet" href="create_faculty.css">
+    <link rel="stylesheet" href="faculty.css">
     <script>
         function CheckForm(){
             var pass = document.getElementById("password").value;
