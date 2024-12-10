@@ -37,7 +37,10 @@
 <?php
 $message = "";
 if(isset($_POST['submit']) && $_POST['submit'] == "Sign Up"){
-    $message = insertUserStudent($_POST["name"], $_POST["email"], $_POST["password"]);
+    $message = insertAdmin($_POST["name"], $_POST["email"], $_POST["password"]);
+    if ($message == "New record created successfully") {
+        header("Location: admin_dashboard.php");
+    }
 }
 ?>
 

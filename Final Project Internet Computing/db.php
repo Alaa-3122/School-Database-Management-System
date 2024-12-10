@@ -91,7 +91,7 @@ function selectfaculty() {
 
 
 // Select and display courses and instructor
-function selectcourse_admin() {
+function selectcourseInstructor_admin() {
     $conn = getConnection();
 
     // Select query
@@ -808,6 +808,99 @@ function updateStudent($id, $gpa) {
     }
 
     $conn->close();
+}
+
+// Courses enrolled by all student (For courses student table in admin)
+function selectCoursesStudents() {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT c.course_code, c.course_name, s.ID, s.user_id, u.name, sc.grade
+    from students as s inner join student_courses as sc on s.ID = sc.student_id
+    inner join courses as c on c.ID = sc.course_id
+    inner join users as u on u.ID = s.user_id";
+    $result = $conn->query($sql);
+
+    $rows = [];
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        return null;
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+// courses for admin
+function selectCourses() {
+    $conn = getConnection();
+
+    // Select query
+    $sql = "SELECT * from courses";
+    $result = $conn->query($sql);
+
+    $rows = [];
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+    } else {
+        return null;
+    }
+    
+    return $rows;
+    
+    $conn->close();
+}
+
+
+function insertAdmin($Name, $Email, $Password) {
+    $conn = getConnection();
+    try {
+        // Check if email already exists
+        if (doesEmailExist($Email)) {
+            return "Error: Email already exists.";
+        }
+
+        $hashpass = password_hash($Password, PASSWORD_DEFAULT);
+
+        // Prepared statement to insert user
+        $stmt = $conn->prepare("INSERT INTO users (Name, Email, Password, Role) VALUES (?, ?, ?, 'Admin')");
+        $stmt->bind_param("sss", $Name, $Email, $hashpass);
+        
+        if ($stmt->execute()) {
+            return createNotification(findUserID($Email));
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
+}
+
+function insertCourse($code, $name) {
+    $conn = getConnection();
+    try {
+
+        // Prepared statement to insert user
+        // INSERT INTO `courses`(`ID`, `course_name`, `course_code`) VALUES ('[value-1]','[value-2]','[value-3]')
+        $stmt = $conn->prepare("INSERT INTO courses (course_name, course_code) VALUES (?, ?)");
+        $stmt->bind_param("ss", $name, $code);
+        
+        if ($stmt->execute()) {
+            return "New course created successfully";
+        } else {
+            return "Error: " . $conn->error;
+        }
+    } finally {
+        $conn->close();
+    }
 }
 
 ?>

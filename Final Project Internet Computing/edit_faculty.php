@@ -44,7 +44,10 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Update"){
 
     if($_GET["action"] == "edit"){
         $message = updateUserFaculty($_GET["id"], $_POST["name"], $_POST["email"], $_POST["password"], $_POST["department"]);
-        header("Location: admin_dashboard.php");
+
+        if ($message == "Record updated successfully") {
+            header("Location: admin_dashboard.php");
+        }
     }
 }
 ?>
@@ -58,7 +61,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Update"){
     <?= $message; ?>
 </div>
 
-            <form action="faculty.php?action=<?php echo $_GET['action'];?>&id=<?php echo $_GET["id"];?>" method="POST" id="signInForm" onsubmit="return CheckForm()">
+            <form action="edit_faculty.php?action=<?php echo $_GET['action'];?>&id=<?php echo $_GET["id"];?>" method="POST" id="signInForm" onsubmit="return CheckForm()">
                 <div class="input-group">
                     <label for="name">Full Name</label>
                     <input type="text" id="name" name="name" required placeholder="Enter your full name" value="<?php echo $userToEdit["name"]?>">
