@@ -63,7 +63,7 @@
             }
 
         }else{
-            $text = "Wrong ID or Password";
+            $text = "Wrong Email or Password";
         }
     }
 
