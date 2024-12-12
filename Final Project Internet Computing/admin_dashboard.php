@@ -432,7 +432,7 @@ checkNotifications();
                                     <td><?php echo $coursesStudents[$i]["student_id"]?></td>
                                     <td><?php echo $coursesStudents[$i]["user_id"]?></td>
                                     <td><?php echo $coursesStudents[$i]["name"]?></td>
-                                    <td><?php echo $coursesStudents[$i]["grade"]?></td>
+                                    <td><?php echo isset($coursesStudents[$i]["grade"]) ? $coursesStudents[$i]["grade"] : 'N/A';?></td>
                                 </tr>
                                 <?php
                             }
