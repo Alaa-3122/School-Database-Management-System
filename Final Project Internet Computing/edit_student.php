@@ -69,7 +69,7 @@ if(isset($_POST['submit']) && $_POST['submit'] == "Update"){
                 </div>
                 <div class="input-group">
                     <label for="gpa">GPA</label>
-                    <input type="number" id="gpa" name="gpa" required placeholder="Enter GPA" value="<?php echo $userToEdit["gpa"]?>">
+                    <input type="number" step="0.01" id="gpa" name="gpa" required placeholder="Enter GPA" value="<?php echo $userToEdit["gpa"]?>">
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>

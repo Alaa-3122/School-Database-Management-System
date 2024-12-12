@@ -223,32 +223,6 @@ function getFacultyDept($id) {
     }
 }
 
-// function selectcourse_faculty($id) {
-//     $conn = getConnection();
-
-//     // Select query
-//     $sql = "SELECT c.ID, c.course_code, c.course_name
-//     from faculty as f inner join faculty_course as fc on f.ID = fc.faculty_id
-//     inner join courses as c on c.ID = fc.course_id
-//     where f.user_id = $id";
-
-//     $result = $conn->query($sql);
-
-//     if ($result->num_rows > 0) {
-//         // Output data of each row
-//         while($row = $result->fetch_assoc()) {
-//             $rows[] = $row;
-//         }
-//     } else {
-//         return null;
-//     }
-    
-//     return $rows;
-    
-//     $conn->close();
-// }
-
-
 function selectcourse_faculty($id) {
     $conn = getConnection();
 
@@ -425,85 +399,6 @@ function rejectUser($nid) {
 
 }
 
-
-// function insertUserStudent($Name, $Email, $Password) {
-//     $conn = getConnection();
-//     $hashpass = password_hash($Password, PASSWORD_DEFAULT);
-//     // Insert query
-//     $sql = "INSERT INTO users (Name, Email, Password) 
-//             VALUES ('$Name', '$Email', '$hashpass')";
-
-//     if ($conn->query($sql) === TRUE) {
-//         return insertStudent(findUserID($Email));
-//     } else {
-//         return "Error: " . $conn->error;
-//     }
-
-//     $conn->close();
-// }
-
-
-// function findUserID($email) {
-//     $conn = getConnection();
-
-    
-//     $sql = "select ID from users
-//     where email = '$email'";
-    
-//     $result = $conn->query($sql);
-//     if ($result && $row = $result->fetch_assoc()) {
-//         return $row['ID'];
-//     } else {
-//         return null;
-//     }
-// }
-
-// function insertStudent($id) {
-//     $conn = getConnection();
-    
-//     // Insert query
-//     $sql = "INSERT INTO `students`(`user_id`) VALUES ('$id')";
-
-//     if ($conn->query($sql) === TRUE) {
-//         return createNotification($id);
-//     } else {
-//         return "Error: " . $conn->error;
-//     }
-
-//     $conn->close();
-// }
-
-// function createNotification($id) {
-//     $conn = getConnection();
-//     $msg = createMessage($id);
-//     // Insert query
-//     $sql = "INSERT INTO `notifications`(`user_id`, `is_read`, `message`)
-//     VALUES ('$id','0','$msg')";
-
-//     if ($conn->query($sql) === TRUE) {
-//         return "New record created successfully";
-//     } else {
-//         return "Error: " . $conn->error;
-//     }
-
-//     $conn->close();
-// }
-
-
-// function createMessage($id) {
-//     $conn = getConnection();
-
-    
-//     $sql = "select name, role from users
-//     where ID = $id";
-    
-//     $result = $conn->query($sql);
-//     if ($result && $row = $result->fetch_assoc()) {
-//         return "New " . $row['role'] . " " . $row["name"] . " has registered" ;
-//     } else {
-//         return null;
-//     }
-// }
 function insertUserStudent($Name, $Email, $Password) {
     $conn = getConnection();
     try {
@@ -628,40 +523,6 @@ function createMessage($id) {
         $conn->close();
     }
 }
-
-
-// function insertUserFaculty($Name, $Email, $Password, $department) {
-//     $conn = getConnection();
-//     $hashpass = password_hash($Password, PASSWORD_DEFAULT);
-//     // Insert query
-//     $sql = "INSERT INTO users (Name, Email, Password, role) 
-//             VALUES ('$Name', '$Email', '$hashpass', 'Faculty')";
-
-//     if ($conn->query($sql) === TRUE) {
-//         return insertFaculty(findUserID($Email), $department);
-//     } else {
-//         return "Error: " . $conn->error;
-//     }
-
-//     $conn->close();
-// }
-
-
-
-// function insertFaculty($id, $department) {
-//     $conn = getConnection();
-    
-//     // Insert query
-//     $sql = "INSERT INTO `faculty`(`user_id`, `department`) VALUES ('$id','$department')";
-
-//     if ($conn->query($sql) === TRUE) {
-//         return createNotification($id);
-//     } else {
-//         return "Error: " . $conn->error;
-//     }
-
-//     $conn->close();
-// }
 
 function insertUserFaculty($Name, $Email, $Password, $department) {
     $conn = getConnection();
@@ -846,7 +707,8 @@ function selectCoursesStudents() {
     $sql = "SELECT c.ID, c.course_code, c.course_name, s.ID as student_id, s.user_id, u.name, sc.grade
     from students as s inner join student_courses as sc on s.ID = sc.student_id
     inner join courses as c on c.ID = sc.course_id
-    inner join users as u on u.ID = s.user_id";
+    inner join users as u on u.ID = s.user_id
+    order by c.ID";
     $result = $conn->query($sql);
 
     $rows = [];
