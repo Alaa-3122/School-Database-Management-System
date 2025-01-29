@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a web-based School Database Management System built using PHP, MySQL (phpMyAdmin), and XAMPP. It includes role-based logins for administrators, faculty, and students, with AJAX for real-time updates.
+This is a web-based School Database Management System built using HTML, CSS, JavaScript, PHP, MySQL (phpMyAdmin), and XAMPP. It includes role-based logins for administrators, faculty, and students, with AJAX for real-time updates.
 
 ## Features
 
